@@ -16,7 +16,6 @@ def video_save_thread(stopped: threading.Event, capture_buf: collections.deque, 
     width, height, fps = capture_spec
 
     video_codec = cv2.VideoWriter_fourcc(*"mp4v")
-
     frame_id = 0
     video_writer: Optional[cv2.VideoWriter] = None
     while not stopped.is_set():
@@ -36,7 +35,7 @@ def video_save_thread(stopped: threading.Event, capture_buf: collections.deque, 
 
 
 def video_capture_thread(stopped: threading.Event, capture_buf: collections.deque, capture_spec):
-    cap = cv2.VideoCapture(0)
+    cap = cv2.VideoCapture(2)
 
     # fps = 30
     # width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
