@@ -9,7 +9,7 @@ import cv2
 
 
 def video_save_thread(stopped: threading.Event, capture_buf: collections.deque, capture_spec):
-    output_dir = Path("..") / "video_output"
+    output_dir = Path(".") / "video_output"
     if not output_dir.exists():
         output_dir.mkdir(exist_ok=True)
 
@@ -64,7 +64,7 @@ def video_capture_thread(stopped: threading.Event, capture_buf: collections.dequ
 if __name__ == '__main__':
     capture_buf = collections.deque(maxlen=1000)
 
-    capture_spec = [1280, 720, 30, 0]
+    capture_spec = [1280, 720, 30, 2]
 
     is_stopped = threading.Event()
     t_capture = threading.Thread(target=video_capture_thread, args=(is_stopped, capture_buf, capture_spec))
