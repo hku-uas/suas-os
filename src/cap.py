@@ -13,7 +13,7 @@ def video_save_thread(stopped: threading.Event, capture_buf: collections.deque, 
     if not output_dir.exists():
         output_dir.mkdir(exist_ok=True)
 
-    width, height, fps = capture_spec
+    width, height, fps, device_idx = capture_spec
 
     video_codec = cv2.VideoWriter_fourcc(*"mp4v")
     frame_id = 0
@@ -64,7 +64,7 @@ def video_capture_thread(stopped: threading.Event, capture_buf: collections.dequ
 if __name__ == '__main__':
     capture_buf = collections.deque(maxlen=1000)
 
-    capture_spec = [1280, 720, 30, 1]
+    capture_spec = [1280, 720, 30, 0]
 
     is_stopped = threading.Event()
     t_capture = threading.Thread(target=video_capture_thread, args=(is_stopped, capture_buf, capture_spec))
