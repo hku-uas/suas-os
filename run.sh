@@ -1,1 +1,1 @@
-python3 ./src/cap.py
+python3 -m src.main

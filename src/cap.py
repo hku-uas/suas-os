@@ -35,12 +35,12 @@ def video_save_thread(stopped: threading.Event, capture_buf: collections.deque, 
 
 
 def video_capture_thread(stopped: threading.Event, capture_buf: collections.deque, capture_spec):
-    cap = cv2.VideoCapture(2)
-
     # fps = 30
     # width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
     # height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-    width, height, fps = capture_spec
+    width, height, fps, device_idx = capture_spec
+
+    cap = cv2.VideoCapture(device_idx)
 
     last_update = time.time()
     try:
@@ -64,7 +64,7 @@ def video_capture_thread(stopped: threading.Event, capture_buf: collections.dequ
 if __name__ == '__main__':
     capture_buf = collections.deque(maxlen=1000)
 
-    capture_spec = [1280, 720, 30]
+    capture_spec = [1280, 720, 30, 1]
 
     is_stopped = threading.Event()
     t_capture = threading.Thread(target=video_capture_thread, args=(is_stopped, capture_buf, capture_spec))
