@@ -41,7 +41,8 @@ def list_capture_streams() -> Optional[Any]:
             output = []
 
         for line in output:
-            if grps := re.findall(r"(.+) \((.*)\):", line):
+            grps = re.findall(r"(.+) \((.*)\):", line)
+            if grps is not None:
                 devices.append({
                     "uniqueID": None,
                     "vendorID": None,
@@ -50,11 +51,15 @@ def list_capture_streams() -> Optional[Any]:
                     "model": grps[0][0],
                     "streams": []
                 })
-            elif grps := re.findall(r"(/dev/video(\d+))", line):
+                continue
+
+            grps = re.findall(r"(/dev/video(\d+))", line)
+            if grps is not None:
                 devices[-1]["streams"].append({
                     "path": grps[0][0],
                     "opencv_capture_idx": int(grps[0][1]),
                 })
+                continue
     log.debug(devices)
     return devices
 
