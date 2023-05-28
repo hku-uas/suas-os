@@ -7,6 +7,7 @@ from typing import Optional
 
 import cv2
 
+from src.definitions import root_dir
 from src.utils.common_logger import get_logger
 
 log = get_logger()
@@ -23,7 +24,7 @@ def get_folder_size(folder: Path):
 
 
 def video_save_thread(is_stopped: threading.Event, capture_buf: collections.deque, capture_spec):
-    output_dir = Path(".") / "video_output"
+    output_dir = root_dir / "video_output"
     if not output_dir.exists():
         output_dir.mkdir(exist_ok=True)
 
