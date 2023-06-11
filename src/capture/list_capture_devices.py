@@ -83,4 +83,4 @@ def auto_select_device() -> Optional[Any]:
     highest_score_device = highest_score(devices, scorer_func)
     return highest_score_device
 
-# print(json.dumps(list_capture_streams(), indent=4))
+# log.info(json.dumps(list_capture_streams(), indent=4))

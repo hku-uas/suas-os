@@ -31,7 +31,7 @@ def video_save_thread(is_stopped: threading.Event, capture_buf: collections.dequ
     max_dir_size = 16 * 1024 * 1024 * 1024  # 16GB
 
     width, height, fps = capture_spec
-    print(capture_spec)
+    log.info(capture_spec)
 
     video_codec = cv2.VideoWriter_fourcc(*"mp4v")
     frame_id = 0

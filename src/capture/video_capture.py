@@ -63,5 +63,5 @@ class VideoCapture(threading.Thread):
 
                 cap.release()
             except Exception as ex:
-                print(ex)
+                log.info(ex)
                 log.info(f"Stopping capture of f{selected_device['model']}...")

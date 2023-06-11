@@ -7,7 +7,7 @@ def highest_score(lst, func):
     # for i in range(len(lst)):
     #     if lst[i]["lang"] not in ["English", "Big 5 code", "Chinese BG code"]:
     #         continue
-    #     print(f"{scores[i]}. {lst[i]}")
+    #     log.info(f"{scores[i]}. {lst[i]}")
     max_score = max(scores)
     if max_score < 0:
         return None
