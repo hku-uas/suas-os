@@ -33,8 +33,8 @@ if __name__ == '__main__':
 
     t_capture = VideoCapture(
         is_stopped, capture_buf, capture_spec,
-        root_dir / ".." / "1.mp4",
-        # None
+        # root_dir / ".." / "1.mp4",
+        None
     )
     t_capture.start()
 

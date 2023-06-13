@@ -1,4 +1,5 @@
 import collections
+import platform
 import threading
 import time
 from pathlib import Path
@@ -35,12 +36,16 @@ class VideoCapture(threading.Thread):
         while not self.is_stopped.is_set():
 
             if not mimic_webcam:
-                selected_device = auto_select_device()
-                if selected_device is None:
-                    time.sleep(1)
-                    continue
-                log.info(f"Starting capture of {selected_device['model']}...")
-                dev = selected_device["streams"][0]["opencv_capture_idx"]
+                #tmp
+                if platform.system() == "Linux":
+                    dev = 0
+                else:
+                    selected_device = auto_select_device()
+                    if selected_device is None:
+                        time.sleep(1)
+                        continue
+                    log.info(f"Starting capture of {selected_device['model']}...")
+                    dev = selected_device["streams"][0]["opencv_capture_idx"]
             else:
                 dev = str(self.path_mimic_video.resolve())
 
