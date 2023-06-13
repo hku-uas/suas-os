@@ -1,19 +1,16 @@
 import argparse
 import collections
-import logging
 import threading
 import time
-from random import randint
-from flask_socketio import SocketIO
 
-from flask import Flask, request, send_from_directory
 import cv2
 import numpy as np
+from flask import Flask, send_from_directory
+from flask_socketio import SocketIO
 
 from src.capture.video_capture import VideoCapture
 from src.capture.video_inference import VideoInference
 from src.comm.entry_sender import EntrySender
-from src.definitions import root_dir
 from src.utils.common_logger import init_logger, get_logger
 
 if __name__ == '__main__':
