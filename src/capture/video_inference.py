@@ -44,7 +44,8 @@ class VideoInference(threading.Thread):
         def choose_latest(path, exp):
             versions = path.rglob(exp)
             versions = list(sorted(versions, key=lambda o: o.parent.stem))
-            chosen = versions[-1]
+            # chosen = versions[-1]
+            chosen = versions[0] #TODO
             log.info(f"Choosing {exp} version {chosen.parent.stem}")
             return chosen
 
