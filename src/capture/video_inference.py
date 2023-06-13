@@ -44,8 +44,7 @@ class VideoInference(threading.Thread):
         def choose_latest(path, exp):
             versions = path.rglob(exp)
             versions = list(sorted(versions, key=lambda o: o.parent.stem))
-            # chosen = versions[-1]
-            chosen = versions[0] #TODO
+            chosen = versions[-1]
             log.info(f"Choosing {exp} version {chosen.parent.stem}")
             return chosen
 
@@ -57,6 +56,7 @@ class VideoInference(threading.Thread):
         frameW, frameH, fps = self.capture_spec
 
         while not self.is_stopped.is_set():
+            time.sleep(.1)
             if len(self.capture_buf) <= 0:
                 continue
 
@@ -88,11 +88,13 @@ class VideoInference(threading.Thread):
                     # frame_cropped = np.mean(frame_cropped, axis=2, keepdims=True).astype(np.uint8)
                     # frame_cropped = np.concatenate([frame_cropped] * 3, axis=2)
 
-                    # predicted_letter = self.inference_cropped(self.model_identify_letters, frame_cropped)
-                    # predicted_shape = self.inference_cropped(self.model_identify_shapes, frame_cropped)
-
-                    predicted_letter = None
-                    predicted_shape = None
+                    time.sleep(0.2)
+                    predicted_letter = self.inference_cropped(self.model_identify_letters, frame_cropped)
+                    time.sleep(0.2)
+                    predicted_shape = self.inference_cropped(self.model_identify_shapes, frame_cropped)
+                    
+                    # predicted_letter = None
+                    # predicted_shape = None
 
                     label = f"C-" \
                             f"{predicted_letter if predicted_letter else '?'}/" \

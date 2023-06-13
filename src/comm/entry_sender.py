@@ -19,8 +19,9 @@ class EntrySender(threading.Thread):
 
     def run(self):
         while not self.is_stopped.is_set():
+            time.sleep(0.1)
             if len(self.entry_buf) <= 0:
-                time.sleep(0.05)
+                time.sleep(0.1)
                 continue
 
             entry = self.entry_buf.popleft()

@@ -52,6 +52,7 @@ class VideoCapture(threading.Thread):
             try:
                 cap = cv2.VideoCapture(dev)
                 while not self.is_stopped.is_set():
+                    time.sleep(.1)
                     now = time.time()
                     if now - last_update >= 1 / fps:
                         last_update = now
