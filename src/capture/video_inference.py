@@ -87,9 +87,12 @@ class VideoInference(threading.Thread):
                     # frame_cropped = np.mean(frame_cropped, axis=2, keepdims=True).astype(np.uint8)
                     # frame_cropped = np.concatenate([frame_cropped] * 3, axis=2)
 
-                    predicted_letter = self.inference_cropped(self.model_identify_letters, frame_cropped)
-                    # predicted_letter = "-"
-                    predicted_shape = self.inference_cropped(self.model_identify_shapes, frame_cropped)
+                    # predicted_letter = self.inference_cropped(self.model_identify_letters, frame_cropped)
+                    # predicted_shape = self.inference_cropped(self.model_identify_shapes, frame_cropped)
+
+                    predicted_letter = None
+                    predicted_shape = None
+
                     label = f"C-" \
                             f"{predicted_letter if predicted_letter else '?'}/" \
                             f"{predicted_shape if predicted_shape else '?'}/" \
