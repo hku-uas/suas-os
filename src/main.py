@@ -1,3 +1,4 @@
+import argparse
 import collections
 import logging
 import threading
@@ -16,11 +17,17 @@ from src.definitions import root_dir
 from src.utils.common_logger import init_logger, get_logger
 
 if __name__ == '__main__':
+    t1 = time.time()
+
     init_logger()
     log = get_logger()
     log.info("Initializing...")
 
-    t1 = time.time()
+    parser = argparse.ArgumentParser(
+        description='Main HKU UAS Onboard System')
+    parser.add_argument('--force-device', "-d", action="store", type=int,
+                        help='Force OpenCV capture device')
+    args = parser.parse_args()
 
     capture_buf = collections.deque(maxlen=10000)
     entry_buf = collections.deque(maxlen=1000)
@@ -34,7 +41,8 @@ if __name__ == '__main__':
     t_capture = VideoCapture(
         is_stopped, capture_buf, capture_spec,
         # root_dir / ".." / "1.mp4",
-        None
+        None,
+        args.force_device
     )
     t_capture.start()
 

@@ -15,7 +15,7 @@ log = get_logger()
 
 class VideoCapture(threading.Thread):
     def __init__(self, is_stopped: threading.Event, capture_buf: collections.deque, capture_spec,
-                 path_mimic_video: Optional[Path]):
+                 path_mimic_video: Optional[Path], force_dev: int):
         super().__init__()
 
         log.info("Loading video capture...")
@@ -23,6 +23,7 @@ class VideoCapture(threading.Thread):
         self.capture_buf = capture_buf
         self.capture_spec = capture_spec
         self.path_mimic_video = path_mimic_video
+        self.force_dev = force_dev
 
     def run(self):
         # fps = 30
@@ -34,11 +35,10 @@ class VideoCapture(threading.Thread):
 
         last_update = time.time()
         while not self.is_stopped.is_set():
-
             if not mimic_webcam:
-                #tmp
-                if platform.system() == "Linux":
-                    dev = 0
+                if self.force_dev is not None:
+                    log.info(f"Forcing device {self.force_dev}")
+                    dev = self.force_dev
                 else:
                     selected_device = auto_select_device()
                     if selected_device is None:
@@ -69,4 +69,5 @@ class VideoCapture(threading.Thread):
                 cap.release()
             except Exception as ex:
                 log.info(ex)
-                log.info(f"Stopping capture of f{selected_device['model']}...")
+                log.info(f"Stopping capture... (Retrying in 10 seconds!)")
+                time.sleep(10)
